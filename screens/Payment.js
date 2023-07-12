@@ -186,8 +186,8 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   input: {
-    width: '100%',
-    height: 40,
+    width: 350,
+    height: 50,
     borderColor: '#CCCCCC',
     borderWidth: 1,
     borderRadius: 5,
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   cardField: {
-    width: '100%',
+    width: 350,
     height: 50,
     marginVertical: 30,
     borderWidth: 1,
