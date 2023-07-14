@@ -334,6 +334,8 @@ const styles = StyleSheet.create({
     position: 'relative',
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: "5%",
+   
   },
 
   buttonPressed: {
@@ -346,7 +348,7 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: '#f0f0f0',
     borderRadius: 8,
-    zIndex: 2,
+    zIndex: 2, width: "95%",
   },
 
   checkoutButton: {
@@ -379,7 +381,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 8,
     marginBottom: 8,
-    paddingVertical: 12,
+    paddingVertical: 10,
     paddingHorizontal: 16,
   },
 
@@ -396,6 +398,7 @@ const styles = StyleSheet.create({
 
   costforeventButton: {
     backgroundColor: '#000',
+  
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 25,
@@ -417,14 +420,14 @@ const styles = StyleSheet.create({
   },
   FinalizeEvent: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 25,
     fontWeight: 'bold',
 
   },
   Pressable: {
     backgroundColor: '#000',
-    paddingVertical: 12,
-    paddingHorizontal: 24,
+    paddingVertical: 32,
+    paddingHorizontal: 34,
     borderRadius: 25,
     marginTop: "5%",
     alignItems: 'center',
@@ -452,7 +455,7 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: '#fff',
     borderRadius: 8,
-    marginBottom: 16,
+    marginBottom: "1%",
     padding: 8,
     fontSize: 16,
   },

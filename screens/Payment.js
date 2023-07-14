@@ -1,20 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { useRoute } from '@react-navigation/native';
 import { CardField, StripeProvider } from '@stripe/stripe-react-native';
-import { StyleSheet, View, Text, Button, TextInput } from 'react-native';
+import { StyleSheet, View, Text, Button, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { useStripe } from '@stripe/stripe-react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+
 
 export default function Payment() {
   const route = useRoute();
   const price = route.params?.price;
+ 
+
 
   return (
     <StripeProvider publishableKey="pk_test_51MpFulKKeFhzEyfn78Rv4CGBwpuYMx3othFCVTfBpN8qchlTYEEjIb2LixCbA9iigBOUt1xlqnQhIkey5g0OLexD00K4qAO53d">
+    
       <View style={styles.container}>
         <Text style={styles.title}>Enter Card Details</Text>
         <Text style={styles.price}>Amount: ${price}</Text>
         <PaymentScreen price={price} />
       </View>
+
     </StripeProvider>
   );
 }
@@ -34,6 +40,11 @@ function PaymentScreen({ price }) {
   const handleFocus = (focusedField) => {
     console.log('focusField', focusedField);
   };
+   
+  const handleKeyboardDismiss = () => {
+    Keyboard.dismiss();
+  };
+ 
 
   const handlePayment = async () => {
     try {
@@ -122,6 +133,7 @@ function PaymentScreen({ price }) {
   }, []);
 
   return (
+    <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
     <View style={styles.container}>
       <Text style={styles.label}>Name:</Text>
       <TextInput
@@ -129,6 +141,7 @@ function PaymentScreen({ price }) {
         value={name}
         onChangeText={setName}
         placeholder="Alec Lewis"
+        onBlur={handleKeyboardDismiss}
       />
 
       <Text style={styles.label}>Number:</Text>
@@ -137,6 +150,7 @@ function PaymentScreen({ price }) {
         value={number}
         onChangeText={setNumber}
         placeholder="(214) 557-3831"
+        onBlur={handleKeyboardDismiss}
       />
 
       <Text style={styles.label}>Email:</Text>
@@ -145,6 +159,7 @@ function PaymentScreen({ price }) {
         value={email}
         onChangeText={setEmail}
         placeholder="johndoe@example.com"
+        onBlur={handleKeyboardDismiss}
       />
 
       <Text style={styles.label}>Address:</Text>
@@ -153,6 +168,7 @@ function PaymentScreen({ price }) {
         value={address}
         onChangeText={setAddress}
         placeholder="Street, City, State and Zip"
+        onBlur={handleKeyboardDismiss}
       />
 
       <CardField
@@ -160,14 +176,18 @@ function PaymentScreen({ price }) {
         style={styles.cardField}
         onCardChange={handleCardChange}
         onFocus={handleFocus}
+        onBlur={handleKeyboardDismiss}
       />
 
       <Button title="Reserve!" onPress={handlePayment} />
     </View>
+    </TouchableWithoutFeedback>
+   
   );
 }
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
     justifyContent: 'center',

@@ -61,11 +61,11 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    marginBottom: 10,
+    marginBottom: 1,
   },
   selectedText: {
-    fontSize: 16,
-    marginBottom: '10%',
+    fontSize: 20,
+    marginBottom: '3%',
     fontWeight: 'bold',
   },
   dateTimePicker: {
