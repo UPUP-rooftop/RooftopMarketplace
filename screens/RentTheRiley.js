@@ -13,7 +13,8 @@ import {
   Modal,
 } from 'react-native';
 import Calendar from '../Components/Calendar';
-
+import PaymentsUICompleteScreen from '../screens/PaymentsUICompleteScreen';
+import PaymentScreen from '../Components/PaymentScreen';
 
 const PricingTable = ({ navigation, title }) => {
   const [quantity, setQuantity] = useState('');
@@ -25,13 +26,13 @@ const PricingTable = ({ navigation, title }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isCostCalculated, setIsCostCalculated] = useState(false);
   
-const handlePayment = () => {
+const PaymentsUICompleteScreen = () => {
     if (quantity && packageOption && numOfPeople) {
       console.log('Selected hours:', quantity);
       console.log('Selected number of people:', numOfPeople);
       console.log('Selected package:', packageOption);
       console.log('Selected upgrades:', selectedUpgrades);
-    navigation.navigate('Payment', { price: price }); // Pass the price as a route parameter to the payment screen
+    navigation.navigate('PaymentsUICompleteScreen', { price: price }); // Pass the price as a route parameter to the payment screen
   }  else {
       setIsModalVisible(true);
     }   
@@ -311,13 +312,13 @@ const handlePayment = () => {
             >
               <Text style={styles.CostForEvent}>Cost for Event = ${price}</Text>
             </TouchableOpacity>
-            {isCostCalculated && (
+            {/* {isCostCalculated && ( */}
             <Pressable
   style={styles.Pressable}
-  onPress={() => handlePayment()}>
+  onPress={() => PaymentsUICompleteScreen()}>
   <Text style={styles.FinalizeEvent}>Finalize Event!</Text>
 </Pressable>
-            )}
+            {/* )} */}
           </View>
       </View>
       </View>
@@ -348,7 +349,7 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: '#f0f0f0',
     borderRadius: 8,
-    zIndex: 2, width: "95%",
+    zIndex: 2, width: "98%",
   },
 
   checkoutButton: {

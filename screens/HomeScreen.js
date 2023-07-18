@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     bottom: 150,
     backgroundColor: 'transparent',
     borderRadius: 20,
-    paddingHorizontal: 75,
+    paddingHorizontal: "10%",
     paddingVertical: 10,
     elevation: 2,
     flexDirection: 'row',
@@ -59,8 +59,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     backgroundColor: '#6ca6cd', // Example color, replace with your desired button color
     borderRadius: 30,
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingHorizontal: "10%",
+    paddingVertical: "5%",
     shadowColor: 'rgba(0, 0, 0, 5)', // Example shadow color, customize as needed
     shadowOpacity: 0.8,
     shadowOffset: { width: 0, height: 5 },
