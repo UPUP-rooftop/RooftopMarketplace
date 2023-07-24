@@ -19,7 +19,6 @@ const PaymentScreen: React.FC<Props> = ({ paymentMethod, children }) => {
           publishableKey,
           merchantIdentifier: 'merchant.com.stripe.react.native',
           urlScheme: 'stripe-example',
-          setUrlSchemeOnAndroid: true,
         });
         setLoading(false);
       }

@@ -25,7 +25,7 @@
     "@stripe/stripe-js": "^1.54.1",
     "@stripe/stripe-react-native": "0.23.3",
     "@supabase/supabase-js": "^2.26.0",
-    "expo": "~48.0.6",
+    "expo": "^48.0.6",
     "expo-constants": "~14.2.1",
     "expo-linking": "~4.0.1",
     "expo-router": "^1.2.2",
@@ -66,6 +66,6 @@
     "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4"
   },
-  "proxy": "http://localhost:4242",
+  "proxy": "http://localhost:3000",
   "private": true
 }
