@@ -12,9 +12,11 @@ import PaymentsUICompleteScreen from './screens/PaymentsUICompleteScreen';
 import { colors } from './colors';
 import WestviewRooftop from './screens/WestViewRooftop';
 import PaymentScreenforWestView from './screens/PaymentScreenforWestView';
+import SignIn from './screens/SignIn';
 
 
 const Stack = createStackNavigator();
+
 
 
 export default function App() {
@@ -48,6 +50,11 @@ export default function App() {
           <Stack.Screen 
             name="Home" 
             component={HomeScreen}
+            options={{ headerShown: false }} />
+           
+            <Stack.Screen 
+            name="SignIn" 
+            component={SignIn}
             options={{ headerShown: false }} />
           
           <Stack.Screen 
