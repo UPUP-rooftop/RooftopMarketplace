@@ -55,8 +55,9 @@ export default function Button({
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 12,
-    borderRadius: 12,
+    
+    paddingVertical: 20,
+    borderRadius: 20,
   },
   primaryContainer: {
     backgroundColor: colors.slate,

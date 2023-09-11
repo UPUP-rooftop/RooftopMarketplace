@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Alert } from 'react-native';
+import { Alert, StyleSheet, Text, Keyboard } from 'react-native';
 import { useStripe } from '@stripe/stripe-react-native';
 import Button from '../Components/Button';
 import PaymentScreen from '../Components/PaymentScreen';
 import { API_URL } from '../Config';
+import { TextInput } from 'react-native-gesture-handler';
   
 export default function PaymentsUICompleteScreen() {
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
@@ -88,8 +89,6 @@ export default function PaymentsUICompleteScreen() {
 
   return (
     <PaymentScreen>
-
-      
       
       <Button
         variant="primary"
@@ -98,6 +97,18 @@ export default function PaymentsUICompleteScreen() {
         title="Checkout"
         onPress={openPaymentSheet}
       />
+
+    
     </PaymentScreen>
   );
+  
 }
+
+const styles = StyleSheet.create({
+
+   
+
+});
+
+
+

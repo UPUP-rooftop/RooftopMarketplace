@@ -9,7 +9,7 @@ export default function MapScreen({ route, navigation }) {
   const [showListings, setShowListings] = useState(false);
   const [listings, setListings] = useState([
     { id: 1, name: 'The Riley Venue', latitude: 30.26641608319125, longitude: -97.74588169546644, image: require('../assets/TheRileyRooftop.jpeg') },
-    { id: 2, name: 'Downtown Penthouse', latitude: 30.269129212459166, longitude: -97.74271174311792, image: require('../assets/Penthouse.png') },
+    { id: 2, name: 'Westview Rooftop',  latitude: 30.275073990283648, longitude: -97.74343697790991, image: require('../assets/WestviewRooftop.jpg') },
     { id: 3, name: 'Bar Rooftop', latitude: 30.269929212459166, longitude: -97.74271174311792, image: require('../assets/TheRileyFront.png') },
   ]); // Add some dummy data for the property listings
 
@@ -29,9 +29,9 @@ export default function MapScreen({ route, navigation }) {
 
     let price;
     if (item.name === 'The Riley Venue') {
+      price = '$500/hr';
+    } else if (item.name === 'WestView Rooftop') {
       price = '$250/hr';
-    } else if (item.name === 'Downtown Penthouse') {
-      price = '$1200/hr';
     }
     else if (item.name === 'Bar Rooftop') {
       price = '$500/hr'; 
@@ -42,7 +42,13 @@ export default function MapScreen({ route, navigation }) {
       <TouchableOpacity style={styles.listingItem} onPress={() => {
         if (item.name === 'The Riley Venue') {
           navigation.navigate('The Riley Venue');
-        } else {
+        } 
+
+        if (item.name === 'Westview Rooftop') {
+          navigation.navigate('Westview Rooftop');
+        } 
+        
+        else {
           console.log(`Viewing property listing ${item.id}`);
         }
       }}

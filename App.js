@@ -7,10 +7,11 @@ import MapScreen from './screens/MapScreen';
 import TheRileyVenue from './screens/TheRileyVenue';
 import RentTheRiley from './screens/RentTheRiley';
 import { StripeProvider } from '@stripe/stripe-react-native';
-import Payment from './screens/Payment';
 import { useState, useEffect } from 'react';
 import PaymentsUICompleteScreen from './screens/PaymentsUICompleteScreen';
 import { colors } from './colors';
+import WestviewRooftop from './screens/WestViewRooftop';
+import PaymentScreenforWestView from './screens/PaymentScreenforWestView';
 
 
 const Stack = createStackNavigator();
@@ -31,7 +32,7 @@ export default function App() {
           headerTintColor: colors.white,
           headerStyle: {
             shadowOpacity: 0,
-            backgroundColor: colors.blurple,
+            backgroundColor: colors.dark_gray,
             borderBottomWidth: StyleSheet.hairlineWidth,
             borderBottomColor: colors.slate,
           },
@@ -60,7 +61,7 @@ export default function App() {
            <Stack.Screen
            name="The Riley Venue"
            component={TheRileyVenue}
-           initialParams={{price: '$250/hr'}}
+           initialParams={{price: '$500/hr'}}
            /> 
 
           <Stack.Screen
@@ -69,15 +70,23 @@ export default function App() {
           //  options={{ headerShown: false }}
           />   
 
-<Stack.Screen
-           name="Payment"
-           component={Payment}
-          //  options={{ headerShown: false }}
-          />  
+
       
       <Stack.Screen
            name="PaymentsUICompleteScreen"
            component={PaymentsUICompleteScreen}
+          //  options={{ headerShown: false }}
+          />  
+
+          <Stack.Screen
+          name="Westview Rooftop"
+          component={WestviewRooftop}
+          initialParams={{price: '$250/hr'}}
+          />
+
+         <Stack.Screen
+           name="PaymentScreenforWestView"
+           component={PaymentScreenforWestView}
           //  options={{ headerShown: false }}
           />  
          

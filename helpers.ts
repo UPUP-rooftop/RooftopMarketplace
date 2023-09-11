@@ -11,13 +11,15 @@ export async function fetchPublishableKey(
       `${API_URL}/stripe-key`
     
       );
-console.log("response", response)
+
     
 const { publishableKey } = await response.json();
 
     return publishableKey;
-  } catch (e) {
-    console.warn('Unable to fetch publishable key. Is your server running?', e);
+  } 
+  
+  catch (e) {
+    console.warn('Unable to fetch publishable key. Is your server running?');
     Alert.alert(
       'Error',
       'Unable to fetch publishable key. Is your server running?'

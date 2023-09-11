@@ -13,14 +13,15 @@ import {
   Modal,
 } from 'react-native';
 import Calendar from '../Components/Calendar';
-import PaymentsUICompleteScreen from '../screens/PaymentsUICompleteScreen';
+import PaymentsUICompleteScreen from './PaymentsUICompleteScreen';
 import PaymentScreen from '../Components/PaymentScreen';
+import { API_URL } from '../Config';
 
 const PricingTable = ({ navigation, title }) => {
   const [quantity, setQuantity] = useState('');
   const [packageOption, setPackageOption] = useState('');
   const [numOfPeople, setNumOfPeople] = useState('');
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState();
   const [selectedUpgrades, setSelectedUpgrades] = useState([]); // State for multiple upgrades
   const [validationError, setValidationError] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -111,13 +112,17 @@ const PaymentsUICompleteScreen = () => {
 
     // Calculate the total cost for the event
     const calculatedPrice =
-      quantityValue * 250 + numOfPeopleValue * packagePrice + additionalFee + upgradePrice;
-
-    
+      quantityValue * 500 + numOfPeopleValue * packagePrice + additionalFee + upgradePrice;
+      
+      
       setValidationError('');  
       setPrice(calculatedPrice);
       setIsCostCalculated(true);
   };
+
+  
+
+
   useEffect(() => {
     calculatePrice();
   }, [quantity, packageOption, numOfPeople, selectedUpgrades]);
@@ -136,6 +141,10 @@ const PaymentsUICompleteScreen = () => {
       setSelectedUpgrades([...selectedUpgrades, upgrade]);
     }
   };
+
+  
+
+  
 
 
   return (
