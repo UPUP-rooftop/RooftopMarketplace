@@ -13,6 +13,7 @@ import { colors } from './colors';
 import WestviewRooftop from './screens/WestViewRooftop';
 import PaymentScreenforWestView from './screens/PaymentScreenforWestView';
 import SignIn from './screens/SignIn';
+import ProfileScreen from './screens/ProfileScreen';
 
 
 const Stack = createStackNavigator();
@@ -55,6 +56,11 @@ export default function App() {
             <Stack.Screen 
             name="SignIn" 
             component={SignIn}
+            options={{ headerShown: false }} />
+
+<           Stack.Screen 
+            name="ProfileScreen" 
+            component={ProfileScreen}
             options={{ headerShown: false }} />
           
           <Stack.Screen 
