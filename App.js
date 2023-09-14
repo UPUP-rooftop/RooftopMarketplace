@@ -16,14 +16,14 @@ import SignIn from './screens/SignIn';
 import ProfileScreen from './screens/ProfileScreen';
 
 
+
 const Stack = createStackNavigator();
 
 
 
 export default function App() {
 
-  
-
+  const [userData, setUserData] = useState(null);
   return (
        
        
@@ -58,18 +58,23 @@ export default function App() {
             component={SignIn}
             options={{ headerShown: false }} />
 
-<           Stack.Screen 
-            name="ProfileScreen" 
-            component={ProfileScreen}
-            options={{ headerShown: false }} />
+          <Stack.Screen
+            name="ProfileScreen"
+            options={{ headerShown: false }}
+            >
+            {(props) => <ProfileScreen {...props} setUserData={setUserData} />}
+          </Stack.Screen>
           
-          <Stack.Screen 
-            name="Map" 
-            component={MapScreen}
+          <Stack.Screen
+            name="Map"
             // options={{ headerShown: false }}
+          >
+            {(props) => <MapScreen {...props} userData={userData} />}
+          </Stack.Screen>
+            
+           
         
             
-            />
 
            <Stack.Screen
            name="The Riley Venue"
