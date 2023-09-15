@@ -15,6 +15,7 @@
   "dependencies": {
     "@expo/html-elements": "^0.5.1",
     "@expo/webpack-config": "^18.0.1",
+    "@firebase/database": "^1.0.1",
     "@react-native-async-storage/async-storage": "^1.19.3",
     "@react-native-community/datetimepicker": "^6.7.3",
     "@react-native-community/masked-view": "^0.1.11",
@@ -34,7 +35,7 @@
     "expo-router": "^1.2.2",
     "expo-status-bar": "~1.4.4",
     "express": "^4.18.2",
-    "firebase": "^10.3.1",
+    "firebase": "^10.4.0",
     "formik": "^2.4.2",
     "native-base": "^3.4.28",
     "react": "^18.2.0",

@@ -4,7 +4,6 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
 
-
 const SignIn = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -36,8 +35,6 @@ createUserWithEmailAndPassword(auth, email, password)
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // Handle the error, if needed
-        setErrorState(errorMessage);
       });
   };
   

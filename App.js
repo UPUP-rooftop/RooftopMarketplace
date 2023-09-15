@@ -117,5 +117,4 @@ export default function App() {
       </StripeProvider>
  
   );
-}
-;
+};

@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, setPersistence, browserSessionPersistence } from 'firebase/auth';
 import { getDatabase } from 'firebase/database';
 
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -21,8 +22,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 
-
-
 const auth = getAuth(app);
 setPersistence(auth, browserSessionPersistence)
   .then(() => {
@@ -32,6 +31,8 @@ setPersistence(auth, browserSessionPersistence)
   });
 
 const database = getDatabase(app);
+
+
 
 
 export { auth, database };
