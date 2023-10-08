@@ -14,6 +14,7 @@ import WestviewRooftop from './screens/WestViewRooftop';
 import PaymentScreenforWestView from './screens/PaymentScreenforWestView';
 import SignIn from './screens/SignIn';
 import ProfileScreen from './screens/ProfileScreen';
+import Listings from './screens/Listings';
 
 
 
@@ -32,18 +33,18 @@ export default function App() {
        
         <Stack.Navigator initialRouteName="Home"
         screenOptions={{
-          headerTintColor: colors.white,
+          headerTintColor: colors.dark_gray,
           headerStyle: {
             shadowOpacity: 0,
-            backgroundColor: colors.dark_gray,
+            backgroundColor: colors.white,
             borderBottomWidth: StyleSheet.hairlineWidth,
             borderBottomColor: colors.slate,
           },
           headerTitleStyle: {
-            color: colors.white,
+            color: colors.dark_gray,
           },
           headerBackTitleStyle: {
-            color: colors.white,
+            color: colors.dark_gray,
           },
         }}
         >
@@ -52,6 +53,11 @@ export default function App() {
             name="Home" 
             component={HomeScreen}
             options={{ headerShown: false }} />
+            
+            <Stack.Screen 
+            name="Listings" 
+            component={Listings}
+             />
            
             <Stack.Screen 
             name="SignIn" 

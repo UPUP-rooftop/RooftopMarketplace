@@ -1,33 +1,34 @@
-import { StyleSheet, Text, View, TextInput, Button, Image } from 'react-native';
 import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, Button, ScrollView, FlatList } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
 import * as ImagePicker from 'expo-image-picker';
 import { getDatabase, ref, set, get } from 'firebase/database';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
-const ProfileScreen = ({setUserData}) => {
-  const [address, setAddress] = useState('');
+
+const ProfileScreen = ({ setUserData, navigation }) => {
+  const [logoUri, setLogoUri] = useState('');
+  const [VenueName, setVenueName] = useState('');
   const [pricePerHour, setPricePerHour] = useState('');
-  const [imageUri, setImageUri] = useState(null);
-  const [user, setUser] = useState(null); // State to hold user object
-
+  const [images, setImages] = useState([]);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUser(user); // Set the user object in the state
+        setUser(user);
         fetchUserProfile(user.uid);
       } else {
-        setUser(null); // Set user to null if not authenticated
+        setUser(null);
       }
     });
 
-    // Clean up the listener when the component unmounts
     return () => unsubscribe();
   }, []);
 
-  // Fetch and display user profile data when the component mounts
   useEffect(() => {
     if (user) {
       fetchUserProfile(user.uid);
@@ -35,21 +36,40 @@ const ProfileScreen = ({setUserData}) => {
   }, [user]);
 
   const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
+    let result: ImagePicker.ImagePickerResult = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
+  
+    if (!result.canceled) {
+      setImages([...images, result.uri]);
+    }
+  };
+ 
+  const removeImage = (imageUriToRemove) => {
+    const updatedImages = images.filter((imageUri) => imageUri !== imageUriToRemove);
+    setImages(updatedImages);
+  };
+  
 
-    if (!result.cancelled) {
-      setImageUri(result.uri);
+  const pickLogo = async () => {
+    let result: ImagePicker.ImagePickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+  
+    if (!result.canceled) {
+      setLogoUri(result.uri);
     }
   };
 
   const saveUserProfile = () => {
     if (!user) {
-      console.error('User is not authenticated.'); // Handle this case accordingly
+      console.error('User is not authenticated.');
       return;
     }
 
@@ -57,10 +77,10 @@ const ProfileScreen = ({setUserData}) => {
     const userRef = ref(database, `users/${user.uid}`);
 
     const userData = {
-      address,
+      logoUri,
       pricePerHour,
-      imageUri,
-      // Add any other user-specific data here
+      images,
+      VenueName
     };
 
     set(userRef, userData)
@@ -70,8 +90,6 @@ const ProfileScreen = ({setUserData}) => {
       .catch((error) => {
         console.error('Error saving user profile:', error);
       });
-      
-      setUserData(userData);
   };
 
   const fetchUserProfile = (uid) => {
@@ -82,9 +100,11 @@ const ProfileScreen = ({setUserData}) => {
       .then((snapshot) => {
         if (snapshot.exists()) {
           const userData = snapshot.val();
-          setAddress(userData.address || ''); // Set default value if not available
-          setPricePerHour(userData.pricePerHour || ''); // Set default value if not available
-          setImageUri(userData.imageUri || null); // Set default value if not available
+          setLogoUri(userData.logoUri || '');
+          setPricePerHour(userData.pricePerHour || '');
+          setVenueName(userData.VenueName || '');
+
+          setImages(userData.images || []);
         } else {
           console.log('User profile data not found.');
         }
@@ -94,52 +114,111 @@ const ProfileScreen = ({setUserData}) => {
       });
   };
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Your Profile</Text>
-
-      {imageUri && <Image source={{ uri: imageUri }} style={styles.profileImage} />}
-
-      <Button title="Pick an image from gallery" onPress={pickImage} />
-
-      <TextInput
-        style={styles.input}
-        placeholder="Address"
-        value={address}
-        onChangeText={(text) => setAddress(text)}
-      />
-
-      <TextInput
-        style={styles.input}
-        placeholder="Price per Hour (Ex. $250)"
-        value={pricePerHour}
-        onChangeText={(text) => setPricePerHour(text)}
-      />
-
-      <Button title="Save" onPress={saveUserProfile} />
+  const renderImageItem = ({ item }) => (
+    <View style={styles.imageContainer}>
+      <Image source={{ uri: item }} style={styles.galleryImage} />
+      <TouchableOpacity
+        style={styles.removeButton}
+        onPress={() => removeImage(item)} // Pass the item (image URI) here
+      >
+        <Text style={styles.removeButtonText}>Remove</Text>
+      </TouchableOpacity>
     </View>
+  );
+  
+
+  return (
+    <SafeAreaView>
+    <ScrollView>
+      <View style={styles.container}>
+ 
+        <Text style={styles.header}>Your Profile</Text>
+        <Image source={{ uri: logoUri }} style={styles.logoImage} />
+        <Button title="Add Logo" onPress={pickLogo} />
+        <View style={styles.VenuePictureContainer}>
+          <FlatList
+            data={images}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={renderImageItem}
+            horizontal
+          />
+          <Button title="Add Pictures" onPress={pickImage} />
+        </View>
+        <TextInput
+          style={styles.input}
+          placeholder="Venue Name"
+          value={VenueName}
+          onChangeText={(text) => setVenueName(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Price per Hour (Ex. $250)"
+          value={pricePerHour}
+          onChangeText={(text) => setPricePerHour(text)}
+          keyboardType="numeric" 
+
+        />
+        <Button title="Save" onPress={saveUserProfile} />
+      </View>
+    </ScrollView>
+    </SafeAreaView>
   );
 };
 
-export default ProfileScreen;
-
 const styles = StyleSheet.create({
+ 
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+    padding: 20,
+    borderRadius: 75,
+    backgroundColor: 'whitesmoke',
+    marginRight: "5%",
+    marginLeft: "5%",
+    marginTop: "15%",
+
   },
   header: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: '5%',
   },
-  profileImage: {
-    width: 200,
+  logoImage: {
+    width: 100,
+    height: 100,
+    marginBottom: 16,
+    borderRadius: 8,
+  },
+  VenuePictureContainer: {
+    flex: 1,
+    width: '100%',
+    height: 250,
+    marginBottom: 16,
+    borderRadius: 8,
+  },
+  galleryImage: {
+    width: 300,
     height: 200,
-    marginBottom: 20,
-    borderRadius: 100,
+    marginRight: 8,
+    borderRadius: 8,
   },
+  imageContainer: {
+    position: 'relative',
+  },
+  removeButton: {
+    position: 'absolute',
+    top: 4,
+    right: 4,
+    backgroundColor: 'red',
+    borderRadius: 50,
+    padding: 3,
+    marginRight: 8,
+  },
+  removeButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+
   input: {
     width: '80%',
     borderWidth: 1,
@@ -148,4 +227,12 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 10,
   },
+  saveButton: {
+    backgroundColor: 'blue',
+    color: 'white',
+    padding: 8,
+    borderRadius: 8,
+  },
 });
+
+export default ProfileScreen;

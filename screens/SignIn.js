@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const SignIn = ({navigation}) => {
   const [email, setEmail] = useState('');

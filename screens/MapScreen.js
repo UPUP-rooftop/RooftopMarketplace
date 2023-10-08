@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, FlatList, Image } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
+import { getDatabase, ref, child, push, update } from "firebase/database";
 
 
 
@@ -13,12 +14,15 @@ export default function MapScreen({ route, navigation, userData }) {
     { id: 3, name: 'Bar Rooftop', latitude: 30.269929212459166, longitude: -97.74271174311792, image: require('../assets/TheRileyFront.png') },
   ]); // Add some dummy data for the property listings
 
+
   const region = {
     latitude,
     longitude,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   };
+
+ 
 
   const toggleListings = () => {
     setShowListings(!showListings);
@@ -36,6 +40,8 @@ export default function MapScreen({ route, navigation, userData }) {
     else if (item.name === 'Bar Rooftop') {
       price = '$500/hr'; 
     }
+
+    
     
     return (
      

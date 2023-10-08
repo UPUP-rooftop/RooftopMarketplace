@@ -35,6 +35,18 @@ export default function HomeScreen({ navigation }) {
       style={styles.button}
     />
   </View>
+  
+  <View style={styles.buttonWrapper}>
+    <Button
+      title="Austin Listings"
+      onPress={() => {
+        navigation.navigate('Listings'); 
+      }}
+      color="white"
+      style={styles.button}
+    />
+  </View>
+
 </View>
 
 
