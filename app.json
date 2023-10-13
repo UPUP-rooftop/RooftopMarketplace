@@ -21,10 +21,12 @@
       [
         "@stripe/stripe-react-native",
         {
-          "merchantIdentifier":  "",
+          "merchantIdentifier": "",
           "enableGooglePay": false
         }
-      ]
+      ],
+      "expo-router",
+      "expo-image-picker" 
     ],
     "android": {
       "adaptiveIcon": {
@@ -39,9 +41,8 @@
       "eas": {
         "projectId": "f1ed48fd-48a7-4c35-82bb-4facd586f2ef"
       },
-      "API_URL" : "https://organized-pumped-bagpipe.glitch.me/"
+      "API_URL": "https://organized-pumped-bagpipe.glitch.me/"
     },
     "owner": "aleclewis"
-  
   }
 }

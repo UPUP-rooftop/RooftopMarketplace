@@ -15,19 +15,19 @@ export default function HomeScreen({ navigation }) {
           style={styles.logo}
         />
         <View style={styles.buttonContainer}>
-  <View style={styles.buttonWrapper}>
+  {/* <View style={styles.buttonWrapper}>
     <Button
-      title="Rent a Rooftop"
+      title="Rent a Rooftop (Don't Click)"
       onPress={() => navigation.navigate('Map', { latitude: 30.2672, longitude: -97.7431 })}
       color="white"
       style={styles.button}
     />
-  </View>
+  </View> */}
 
   
   <View style={styles.buttonWrapper}>
     <Button
-      title="Onboard Your Rooftop"
+      title="Rooftop Portal"
       onPress={() => {
         navigation.navigate('SignIn'); 
       }}
@@ -38,7 +38,7 @@ export default function HomeScreen({ navigation }) {
   
   <View style={styles.buttonWrapper}>
     <Button
-      title="Austin Listings"
+      title="Rent a Rooftop"
       onPress={() => {
         navigation.navigate('Listings'); 
       }}

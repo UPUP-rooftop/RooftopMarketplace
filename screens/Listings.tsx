@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Image, FlatList } from 'react-native';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Listings = () => {
   const [userProfiles, setUserProfiles] = useState([]);
@@ -39,29 +40,37 @@ const Listings = () => {
           horizontal
           renderItem={({ item }) => (
             <View style={styles.userInfoContainer}>
-              <View style={styles.userInfo}>
-                <Image source={{ uri: item.logoUri }} style={styles.userImage} />
-                <View style={styles.textContainer}>
-                  <Text style={styles.text}>Venue Name:</Text>
-                  <Text style={styles.venueName}>{item.VenueName}</Text>
+              <ScrollView>
+                <View style={styles.userInfo}>
+                  <Image source={{ uri: item.logoUri }} style={styles.userImage} />
+                  <View style={styles.textContainer}>
+                    <Text style={styles.text}>Venue Name:</Text>
+                    <Text style={styles.venueName}>{item.VenueName}</Text>
+                  </View>
+                  <View style={styles.textContainer}>
+                    <Text style={styles.text}>Price Per Hour:</Text>
+                    <Text style={styles.text}>${item.pricePerHour}</Text>
+                  </View>
+      
+                  <Text style={styles.PictureText}>Pictures</Text>
+                  <FlatList
+                    data={item.images}
+                    keyExtractor={(img, imgIndex) => imgIndex.toString()}
+                    showsVerticalScrollIndicator
+                    style={styles.additionalImagesContainer}
+                    contentContainerStyle={styles.additionalImagesContent}
+                    renderItem={({ item: img }) => {
+                      // Log the image URL to the console
+                      console.log("Image URL:", img);
+                      
+                      return (
+                        <Image source={{ uri: img }} style={styles.additionalImage} />
+                      );
+                    }}
+                  />
                 </View>
-                <View style={styles.textContainer}>
-                  <Text style={styles.text}>Price Per Hour:</Text>
-                  <Text style={styles.text}>${item.pricePerHour}</Text>
-                </View>
-                {/* Additional Images */}
-                <Text style={styles.PictureText}>Pictures</Text>
-                <FlatList
-                  data={item.images}
-                  keyExtractor={(img, imgIndex) => imgIndex.toString()}
-                  showsVerticalScrollIndicator
-                  style={styles.additionalImagesContainer}
-                  contentContainerStyle={styles.additionalImagesContent}
-                  renderItem={({ item: img }) => (
-                    <Image source={{ uri: img }} style={styles.additionalImage} />
-                  )}
-                />
-              </View>
+               
+              </ScrollView>
             </View>
           )}
         />
@@ -94,7 +103,6 @@ const styles = StyleSheet.create({
   PictureText: {
     fontWeight: "bold",
     marginTop: 15,
-
     textAlign: "center"
   },
   userImage: {
@@ -106,18 +114,15 @@ const styles = StyleSheet.create({
   additionalImagesContainer: {
     marginTop: 8,
     height: "41.5%",
-
   },
   additionalImagesContent: {
     paddingHorizontal: 8,
-   
   },
   additionalImage: {
     width: "99%", // Adjust the width as needed
     height: 250,
     borderRadius: 8,
     marginBottom: 3,
-  
   },
   textContainer: {
     flexDirection: 'row',
@@ -130,6 +135,10 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 20,
   },
+  EventInfo: {
+    flex: 1,
+    backgroundColor: 'gray',
+  }
 });
 
 export default Listings;

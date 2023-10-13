@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, setPersistence, browserSessionPersistence } from 'firebase/auth';
 import { getDatabase } from 'firebase/database';
+import { getStorage } from "firebase/storage";
 
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -21,7 +22,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-
 const auth = getAuth(app);
 setPersistence(auth, browserSessionPersistence)
   .then(() => {
@@ -31,8 +31,10 @@ setPersistence(auth, browserSessionPersistence)
   });
 
 const database = getDatabase(app);
+const storage = getStorage(app);
 
 
 
 
-export { auth, database };
+
+export { auth, database, storage };
